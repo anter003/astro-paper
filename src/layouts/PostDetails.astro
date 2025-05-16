@@ -14,8 +14,8 @@ import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
 
 export interface Props {
-  post: CollectionEntry<"blog">;
-  posts: CollectionEntry<"blog">[];
+  post: CollectionEntry<"docs">;
+  posts: CollectionEntry<"docs">[];
 }
 
 const { post, posts } = Astro.props;
@@ -25,11 +25,8 @@ const {
   author,
   description,
   ogImage: initOgImage,
-  canonicalURL,
   pubDatetime,
-  modDatetime,
   tags,
-  hideEditPost,
 } = post.data;
 
 const { Content } = await render(post);
@@ -58,8 +55,6 @@ const layoutProps = {
   author,
   description,
   pubDatetime,
-  modDatetime,
-  canonicalURL,
   ogImage,
   scrollSmooth: true,
 };
@@ -101,8 +96,6 @@ const nextPost =
     </article>
 
     <hr class="my-8 border-dashed" />
-
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
 
     <ul class="mt-4 mb-8 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}

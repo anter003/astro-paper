@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+export async function getStaticPaths() {
+  const infoPages = await getCollection("projects");
+
+  return infoPages.map(page => ({
+    params: {series: page.data.seriesNo},
+    props: {title: page.data.title, desc: page.data.desc}
+  }));
+}
+
+const { series } = Astro.params;
+const { title, desc } = Astro.props;
+---
+
+<Layout title={series}>
+  <Header />
+  <Main pageTitle={series + " " + title} pageDesc={desc}>
+    {series}
+    {title}
+    {desc}
+  </Main>
+  <Footer />
+</Layout>
