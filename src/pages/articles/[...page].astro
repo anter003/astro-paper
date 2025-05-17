@@ -10,7 +10,9 @@ import Pagination from "@/components/Pagination.astro";
 import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
-const posts = await getCollection("docs", ({ data }) => !data.draft);
+  const posts = await getCollection("docs", ({ data }) => !data.draft);
+  console.log(posts);
+
   return paginate(posts, { pageSize: 10 });
 }) satisfies GetStaticPaths;
 

@@ -15,7 +15,7 @@ const projects = defineCollection({
 });
 
 const docs = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: `./${ARTICLE_PATH}` }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: `./${ARTICLE_PATH}` }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
