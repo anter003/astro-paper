@@ -8,19 +8,24 @@ export interface Props extends CollectionEntry<"docs"> {
   variant?: "h2" | "h3";
 }
 
-const { variant = "h2", data, id } = Astro.props;
+let { variant = "h2", data, id } = Astro.props;
 
-const { title, description, pubDatetime, modDatetime, timezone } = data;
+const { title, desc } = data;
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
   class: "text-lg font-medium decoration-dashed hover:underline",
 };
+
+if (id && id.endsWith("s")) {
+  // json file filtering
+  id = id.split("/")[0];
+}
 ---
 
 <li class="my-6">
   <a
-      href={"/articles/" + id}
+    href={"/articles/" + id}
     class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
   >
     {
@@ -31,6 +36,5 @@ const headerProps = {
       )
     }
   </a>
-  <Datetime {pubDatetime} {modDatetime} {timezone} />
-  <p>{description}</p>
+  <p>{desc}</p>
 </li>

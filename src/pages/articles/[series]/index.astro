@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Card from "@/components/Card.astro";
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -9,21 +10,30 @@ export async function getStaticPaths() {
   const infoPages = await getCollection("projects");
 
   return infoPages.map(page => ({
-    params: {series: page.data.seriesNo},
-    props: {title: page.data.title, desc: page.data.desc}
+    params: { series: page.data.seriesNo },
+    props: { title: page.data.title, desc: page.data.desc },
   }));
 }
+
+const contentPages = await getCollection("docs", ({ data }) => !data.draft);
+let pagesNo = 0;
 
 const { series } = Astro.params;
 const { title, desc } = Astro.props;
 ---
 
-<Layout title={series}>
+{(pagesNo = contentPages.filter(a => a.data.series == series).length)}
+<Layout title={series.toString()}>
   <Header />
   <Main pageTitle={series + " " + title} pageDesc={desc}>
-    {series}
-    {title}
-    {desc}
+    <h1>{pagesNo}</h1>
+    <ul>
+      {
+        contentPages
+          .filter(article => article.data.series == series)
+          .map(data => <Card {...data} />)
+      }
+    </ul>
   </Main>
   <Footer />
 </Layout>

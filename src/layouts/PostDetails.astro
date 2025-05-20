@@ -5,7 +5,6 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import SideBar from "@/components/SideBar.astro";
 import Tag from "@/components/Tag.astro";
-import EditPost from "@/components/EditPost.astro";
 import BackButton from "@/components/BackButton.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -104,7 +103,6 @@ const nextPost =
     <div
       class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"
     >
-
       <button
         id="back-to-top"
         class="focus-outline py-1 whitespace-nowrap hover:opacity-75"
@@ -121,7 +119,7 @@ const nextPost =
       {
         prevPost && (
           <a
-            href={`/posts/${prevPost.slug}`}
+            href={`/articles/${prevPost.slug}`}
             class="flex w-full gap-1 hover:opacity-75"
           >
             <IconChevronLeft class="inline-block flex-none" />
@@ -135,7 +133,7 @@ const nextPost =
       {
         nextPost && (
           <a
-            href={`/posts/${nextPost.slug}`}
+            href={`/articles/${nextPost.slug}`}
             class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
           >
             <div>
